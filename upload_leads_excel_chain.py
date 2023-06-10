@@ -54,6 +54,8 @@ def upload_leads_excel_chain(memory: dict):
         answers[key] = answer
 
     user_details = get_value_from_pickle(key='user_details')
+    update_pickle_file(key="from_name", value=answers['from_name'])
+    update_pickle_file(key="from_email", value=answers['from_email'])
 
     data = {
         "name": answers["list_name"],
@@ -71,7 +73,7 @@ def upload_leads_excel_chain(memory: dict):
     connector = MailchimpConnector()
     new_list = connector.create_list(data=data)
 
-    update_pickle_file(key="mailchimp_leads_list_id", value=new_list["id"])
+    update_pickle_file(key="list_id", value=new_list["id"])
     filepath = select_file()
     contents = []
     if filepath:

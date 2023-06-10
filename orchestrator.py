@@ -12,6 +12,8 @@ from langchain.agents import AgentExecutor, ZeroShotAgent
 from prompts import ORCHESTRATOR_PROMPT
 from gain_context import gain_context_chain
 from gather_leads_agent import gather_leads_chain
+from content_creator_chain import get_email_content_chain
+from create_campaign_chain import create_campaign_chain
 from utils import update_pickle_file
 from user_details import user_details
 
@@ -50,7 +52,7 @@ def _gather_leads_tool(
 
 
 def generate_mail_content(plan_str: str):
-    return "Generated the mail content for all the leads and saved them in the shared memory"
+    return get_email_content_chain()
 
 
 def _generate_mail_content_tool(
@@ -65,7 +67,7 @@ def _generate_mail_content_tool(
 
 
 def create_campaign(plan_str: str):
-    return "Created an email campaign with the leads and the mail content."
+    return create_campaign_chain()
 
 
 def _create_campaign_tool(llm: BaseLanguageModel) -> Tool:

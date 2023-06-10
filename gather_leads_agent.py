@@ -6,6 +6,7 @@ from langchain.chains import LLMChain
 from langchain.tools import Tool
 from prompts import LEADS_AGENT_PROMPT
 from upload_leads_excel_chain import upload_leads_excel_chain
+from fetch_list_mailchimp_chain import fetch_list_chain
 # from langchain.chat_models import ChatOpenAI
 # from dotenv import load_dotenv
 
@@ -19,7 +20,7 @@ Type the choice. 1 or 2.
 
 
 def fetch_from_mailchimp_lists(objective: str) -> str:
-    return "Retrieved the list suitable for the objective and stored it in the shared memory"
+    return fetch_list_chain()
 
 
 def _fetch_mailchimp_list_tool(
@@ -80,8 +81,6 @@ def create_leads_agent(llm: BaseLanguageModel, user_objective: str) -> AgentExec
 
 def gather_leads_chain(llm: BaseLanguageModel, user_objective: str) -> str:
     agent_executor = create_leads_agent(llm=llm, user_objective=user_objective)
-    # agent_executor.run(
-    #     {"input": user_objective, "user_choice": "Use an existing mailchimp list."})
     agent_executor.run("Use an existing mailchimp list.")
     return "Gathered leads for this objective and saved them in the shared memory"
 

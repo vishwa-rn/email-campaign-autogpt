@@ -3,7 +3,6 @@ from langchain.prompts import PromptTemplate
 from langchain.llms import OpenAI
 from langchain.chains import LLMChain
 from langchain.chat_models import ChatOpenAI
-from prompt_variables import USER_OBJECTIVE, USER_CONTEXT, USER_DETAILS
 from prompts import SUBJECT_LINE_PROMPT, EMAIL_BODY_PROMPT
 from utils import update_pickle_file, get_value_from_pickle
 
@@ -41,13 +40,12 @@ def get_body_for_email_campaign():
     user_details = get_value_from_pickle(key="user_details")
     body = body_line_chain.run({"user_objective": user_objective,
                                 "user_context": user_context, "user_details": user_details})
+    body = "Dear " + body
     update_pickle_file(key="email_body", value=body)
     return body
 
 
-def get_email_content():
-    subject_line = get_subject_line_for_email_campaign()
-
-    body = get_body_for_email_campaign()
-    body = "Dear " + body
-    return [subject_line, body]
+def get_email_content_chain():
+    get_subject_line_for_email_campaign()
+    get_body_for_email_campaign()
+    return "Generated the mail content for all the leads and saved them in the shared memory"

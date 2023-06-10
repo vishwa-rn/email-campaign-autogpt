@@ -13,11 +13,15 @@ from langchain.base_language import BaseLanguageModel
 import prompts
 from connectors.mailchimp.main import MailchimpConnector
 import json
+import dotenv
+from utils import update_pickle_file
 
 # The chain takes in the lists information and returns a question to choose from for the user. Which we will chain with input and then the answer is sent back.
 
 
-def fetch_list_chain(llm: BaseLanguageModel, memory: dict):
+def fetch_list_chain():
+    dotenv.load_dotenv()
+    llm = ChatOpenAI(temperature=0, model_name='gpt-3.5-turbo')
     connector = MailchimpConnector()
 
     # Call get_lists on the connector object
@@ -40,12 +44,15 @@ def fetch_list_chain(llm: BaseLanguageModel, memory: dict):
         input_variables=["questions", "user_choice"]
     )
 
-    convert_list_to_json = LLMChain(
+    convert_list_to_json_chain = LLMChain(
         llm=llm, prompt=question_generation_with_answer_prompt)
 
-    list = convert_list_to_json.run({
+    list = convert_list_to_json_chain.run({
         "questions": questions,
         "user_choice": choice
     })
 
-    json.loads(list)
+    list = json.loads(list)
+    update_pickle_file(key="list_id", value=list["list_id"])
+    update_pickle_file(key="list_name", value=list["list_name"])
+    return "Retrieved the list suitable for the objective and stored it in the shared memory"
