@@ -164,3 +164,26 @@ class MailchimpConnector:
         response = requests.post(url, auth=(
             "anystring", self.api_key), headers=headers, data=json.dumps(data))
         return response.json()
+
+    def create_campaign_for_segment(self, campaign_type: str, list_id: str, segment_id: int, campaign_title: str, from_name: str, reply_to: str, subject_line: str):
+        url = f"{self.base_url}/campaigns"
+        headers = {"Content-Type": "application/json"}
+        data = {
+            "type": campaign_type,
+            "recipients": {
+                "list_id": list_id,
+                "segment_opts": {
+                    "saved_segment_id": segment_id
+                }
+            },
+            "settings": {
+                "subject_line": subject_line,
+                "title": campaign_title,
+                "from_name": from_name,
+                "reply_to": reply_to
+            }
+        }
+
+        response = requests.post(url, auth=(
+            "anystring", self.api_key), headers=headers, data=json.dumps(data))
+        return response.json()

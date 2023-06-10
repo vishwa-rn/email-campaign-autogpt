@@ -173,3 +173,38 @@ User choice: {user_choice}
 
 Answer:
 """
+
+
+SUBJECT_LINE_PROMPT = """
+You are an email content creator. You would be given user objective and context. Your task is to generate email subject line suitable for running an email campaign to achieve the user objective.
+
+Starting below, you should follow this format:
+
+User objective: The objective which user is trying to achieve.
+User Context: The context which user gave to build the email to achieve the objective.
+Output: Subject line of the mail
+...
+
+Begin!
+User objective: {user_objective}
+User Context: {user_context}
+Output:
+"""
+
+EMAIL_BODY_PROMPT = """
+You are an email content creator. You would be given user objective and context. Your task is to generate email body suitable for running an email campaign to achieve the user objective.
+
+Starting below, you should follow this format:
+
+User objective: The objective which user is trying to achieve.
+User Context: The context which user gave to build the email to achieve the objective.
+User Details: The details of the person who is sending the mail which can be included in the body.
+Output: Body of the mail
+...
+
+Begin!
+User objective: {user_objective}
+User Context: {user_context}
+User Details: {user_details}
+Output: Dear 
+"""
