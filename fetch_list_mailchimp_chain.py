@@ -10,7 +10,7 @@ from langchain.chains import LLMChain
 from langchain.chat_models import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain.base_language import BaseLanguageModel
-import gather_leads_prompts
+import prompts
 from connectors.mailchimp.main import MailchimpConnector
 import json
 
@@ -25,7 +25,7 @@ def fetch_list_chain(llm: BaseLanguageModel):
     print("got the lists")
 
     question_generation_prompt = PromptTemplate(
-        template=gather_leads_prompts.CHOOSE_FROM_LISTS_PROMPT,
+        template=prompts.CHOOSE_FROM_LISTS_PROMPT,
         input_variables=["json"]
     )
     chain = LLMChain(llm=llm, prompt=question_generation_prompt)
@@ -36,7 +36,7 @@ def fetch_list_chain(llm: BaseLanguageModel):
     choice = input(questions)
 
     question_generation_with_answer_prompt = PromptTemplate(
-        template=gather_leads_prompts.CHOOSE_FROM_LISTS_SELECTION_PROMPT,
+        template=prompts.CHOOSE_FROM_LISTS_SELECTION_PROMPT,
         input_variables=["questions", "user_choice"]
     )
 
