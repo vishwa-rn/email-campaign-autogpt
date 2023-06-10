@@ -11,6 +11,7 @@ from langchain.prompts import PromptTemplate
 from langchain.agents import AgentExecutor, ZeroShotAgent
 from prompts import ORCHESTRATOR_PROMPT
 from gain_context import gain_context_chain
+from gather_leads import gather_leads_chain
 
 os.environ["OPENAI_API_KEY"] = "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"
 os.environ["SERPAPI_API_KEY"] = "5e80ac42927317d4a30a71581ec1234f7104563fa118017d89fd8b1a55cc3646"
@@ -34,7 +35,7 @@ def _gain_context_tool(llm: BaseLanguageModel) -> Tool:
 
 
 def gather_leads(objective: str):
-    return "Gathered leads for this objective and saved them in the shared memory"
+    return gather_leads_chain(llm=llm, user_objective=objective, memory=memory)
 
 
 def _gather_leads_tool(
