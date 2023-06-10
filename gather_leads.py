@@ -35,7 +35,7 @@ def _ask_human_tool(
     return tool
 
 
-def fetch_mailchimp_lists(objective: str) -> str:
+def fetch_from_mailchimp_lists(objective: str) -> str:
     return "Retrieved the list suitable for the objective and stored it in the shared memory"
 
 
@@ -43,9 +43,9 @@ def _fetch_mailchimp_list_tool(
         llm: BaseLanguageModel
 ) -> Tool:
     tool = Tool(
-        name="fetch_mailchimp_lists",
-        description="Can be used to fetch a list of leads in Mailchimp",
-        func=fetch_mailchimp_lists
+        name="fetch_from_mailchimp_lists",
+        description="Can be used to fetch a list of leads in Mailchimp for the email campaign to achieve the user objective.",
+        func=fetch_from_mailchimp_lists
     )
     return tool
 
@@ -59,15 +59,14 @@ def _upload_excel_tool(
 ) -> Tool:
     tool = Tool(
         name="upload_excel",
-        description="Can be used to take an excel from the user and check if it works out.",
-        func=upload_excel
+        description="Can be used to take an excel from the user and use it as leads for the email campaign",
+        func=upload_excel,
     )
     return tool
 
 
-def create_leads_agent(llm: BaseLanguageModel) -> AgentExecutor:
+def create_leads_agent(llm: BaseLanguageModel, user_objective: str) -> AgentExecutor:
     tools = [
-        _ask_human_tool(llm=llm),
         _fetch_mailchimp_list_tool(llm=llm),
         _upload_excel_tool(llm=llm)
     ]
@@ -79,6 +78,7 @@ def create_leads_agent(llm: BaseLanguageModel) -> AgentExecutor:
             "tool_descriptions": "\n".join(
                 [f"{tool.name}: {tool.description}" for tool in tools]
             ),
+            "user_objective": user_objective
         }
     )
     agent = ZeroShotAgent(
@@ -96,14 +96,16 @@ def create_leads_agent(llm: BaseLanguageModel) -> AgentExecutor:
 
 
 def gather_leads_chain(llm: BaseLanguageModel, user_objective: str, memory: dict) -> str:
-    agent_executor = create_leads_agent(llm=llm)
-    agent_executor.run(user_objective)
+    agent_executor = create_leads_agent(llm=llm, user_objective=user_objective)
+    # agent_executor.run(
+    #     {"input": user_objective, "user_choice": "Use an existing mailchimp list."})
+    agent_executor.run("Use an existing mailchimp list.")
     return "Gathered leads for this objective and saved them in the shared memory"
 
 
-# Remove this after testing
+# Remove the following code
 
-load_dotenv()
-llm = ChatOpenAI(temperature=0, model_name='gpt-3.5-turbo')  # type: ignore
-memory = dict()
-gather_leads_chain(llm=llm, user_objective="Drive 200 signups.", memory=memory)
+# load_dotenv()
+# llm = ChatOpenAI(temperature=0, model_name='gpt-3.5-turbo')  # type: ignore
+# memory = dict()
+# gather_leads_chain(llm=llm, user_objective="Drive 200 signups.", memory=memory)

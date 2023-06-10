@@ -72,40 +72,53 @@ Questions & Answers:
 """
 
 
-LEADS_AGENT_PROMPT = """You are an lead generating agent which generates leads for an email campaign.
+LEADS_AGENT_PROMPT = """You are an lead gathering agent which gathers leads for an email campaign. We are running the email campaign to achieve a user objective.
 
-Here are the tools to plan and execute the email campaign: {tool_descriptions}
+Here are the tools to gather the leads: {tool_descriptions}
 
 All the tools have the shared memory and they know how to extract the information which they need from that shared memory.
 
+User is given a choice for gathering leads.
+1. Upload Excel
+2. Use an existing mailchimp list.
+
+One of the above tools which represents the choice can get the results.
+
 Starting below, you should follow this format:
 
-User objective: the objective a User wants to achieve through running an email campaign.
-Thought: you should always think about what to do
+User Objective: The objective user is trying to achieve.
+User Choice: Choice between uploading an excel or an existing mailchimp list.
+Thought: you should always think about what to do.
 Action: the action to take, should be one of the tools [{tool_names}]
-Action Input: the input to the action
+Action Input: the input to the action generally N/A or the objective
 Observation: the result of the action
-... (this Thought/Action/Action Input/Observation can repeat N times)
-Thought: I am finished executing a plan and have the information the user asked for or the data the user asked to create
 Final Answer: the final output from executing the plan
 
 
-Example:
-User query: Get 100 signups to my hackathon event.
-Thought: For the leads, I can ask human for the choice of whom to ask - excel or pre-existing mailchimp list.
-Action: ask_human
-Action Input: What tool you want to use? - excel or pre-existing mailchimp list.
-Observation: Excel
-Thought: I should get the leads in an excel from the user.
+Example 1:
+User Objective: Gather 200 signups for my hackathon event.
+User choice: Upload Excel
+Thought: User asked to go with uploading excel.
 Action: upload_excel
-Action Input: Get 100 signups to my hackathon event.
+Action Input: N/A
 Observation: Uploaded excel to mailchimp and the list id is stored in the shared memory.
 Thought: I am finished gathering the leads for the email campaign.
 Final Answer: Gathered leads for this objective and saved them in the shared memory
+
+
+Example 2:
+User Objective: Gather 200 signups for my hackathon event.
+User choice: Use an existing mailchimp list.
+Thought: User asked to go with fetching an existing mailchimp list.
+Action: fetch_from_mailchimp_lists
+Action Input: Gather 200 signups for my hackathon event.
+Observation: Retrieved the list suitable for the objective and stored it in the shared memory
+Thought: I am finished gathering the leads for the email campaign.
+Final Answer: Gathered leads for the objective and saved them in the shared memory.
 ...
 
 Begin!
 
-User objective: {input}
-Thought: I should ask the user first.
+User objective: {user_objective}
+User choice: {input}
 {agent_scratchpad}"""
