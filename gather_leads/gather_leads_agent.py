@@ -5,8 +5,8 @@ from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from langchain.tools import Tool
 from prompts import LEADS_AGENT_PROMPT
-from langchain.chat_models import ChatOpenAI
-from dotenv import load_dotenv
+# from langchain.chat_models import ChatOpenAI
+# from dotenv import load_dotenv
 
 
 leads_prompt = """
@@ -15,24 +15,6 @@ How would you want to setup leads for the mails?
 2. Use an existing mailchimp list?
 Type the choice. 1 or 2.
 """
-
-
-def ask_human(objective: str) -> str:
-    # Input to take the choice here.
-    return "User responded with uploading an excel."
-    # response = input(leads_prompt)
-    # return response
-
-
-def _ask_human_tool(
-        llm: BaseLanguageModel
-) -> Tool:
-    tool = Tool(
-        name="ask_human",
-        description="Can be used to ask a human to choose between the tools which are being built.",
-        func=ask_human
-    )
-    return tool
 
 
 def fetch_from_mailchimp_lists(objective: str) -> str:
