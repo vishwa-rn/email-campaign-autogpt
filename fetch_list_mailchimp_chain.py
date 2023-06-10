@@ -11,7 +11,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain.base_language import BaseLanguageModel
 import gather_leads_prompts
-from mailchimp.main import MailchimpConnector
+from connectors.mailchimp.main import MailchimpConnector
 import json
 
 # The chain takes in the lists information and returns a question to choose from for the user. Which we will chain with input and then the answer is sent back.
