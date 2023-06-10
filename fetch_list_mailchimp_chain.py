@@ -17,7 +17,7 @@ import json
 # The chain takes in the lists information and returns a question to choose from for the user. Which we will chain with input and then the answer is sent back.
 
 
-def fetch_list_chain(llm: BaseLanguageModel):
+def fetch_list_chain(llm: BaseLanguageModel, memory: dict):
     connector = MailchimpConnector()
 
     # Call get_lists on the connector object

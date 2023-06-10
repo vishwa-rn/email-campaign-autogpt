@@ -1,6 +1,7 @@
 import requests
 from dotenv import load_dotenv
 import os
+import json
 
 
 class MailchimpConnector:
@@ -24,12 +25,13 @@ class MailchimpConnector:
 
         # Extract the mailing lists
         mailing_lists = response['lists']
+        return mailing_lists
 
         # Create a new list that includes only the id and name of each list
-        reduced_lists = [{'id': lst['id'], 'name': lst['name']}
-                         for lst in mailing_lists]
+        # reduced_lists = [{'id': lst['id'], 'name': lst['name']}
+        #                  for lst in mailing_lists]
 
-        return reduced_lists
+        # return reduced_lists
 
     #  data = {
     #         "name": list_name,
