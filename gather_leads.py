@@ -1,8 +1,13 @@
+import os
 from langchain.base_language import BaseLanguageModel
 from langchain.agents import AgentExecutor, ZeroShotAgent
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from langchain.tools import Tool
+from prompts import LEADS_AGENT_PROMPT
+from langchain.chat_models import ChatOpenAI
+from dotenv import load_dotenv
+
 
 leads_prompt = """
 How would you want to setup leads for the mails?
@@ -14,8 +19,9 @@ Type the choice. 1 or 2.
 
 def ask_human(objective: str) -> str:
     # Input to take the choice here.
-    response = input(leads_prompt)
-    return response
+    return "User responded with uploading an excel."
+    # response = input(leads_prompt)
+    # return response
 
 
 def _ask_human_tool(
@@ -66,7 +72,7 @@ def create_leads_agent(llm: BaseLanguageModel) -> AgentExecutor:
         _upload_excel_tool(llm=llm)
     ]
     prompt = PromptTemplate(
-        template="Hello leads",
+        template=LEADS_AGENT_PROMPT,
         input_variables=["input", "agent_scratchpad"],
         partial_variables={
             "tool_names":  ", ".join([tool.name for tool in tools]),
@@ -91,5 +97,13 @@ def create_leads_agent(llm: BaseLanguageModel) -> AgentExecutor:
 
 def gather_leads_chain(llm: BaseLanguageModel, user_objective: str, memory: dict) -> str:
     agent_executor = create_leads_agent(llm=llm)
-    agent_executor.run()
+    agent_executor.run(user_objective)
     return "Gathered leads for this objective and saved them in the shared memory"
+
+
+# Remove this after testing
+
+load_dotenv()
+llm = ChatOpenAI(temperature=0, model_name='gpt-3.5-turbo')  # type: ignore
+memory = dict()
+gather_leads_chain(llm=llm, user_objective="Drive 200 signups.", memory=memory)
