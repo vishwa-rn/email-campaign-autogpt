@@ -67,8 +67,8 @@ def upload_leads_excel_chain(memory: dict):
     }
 
     connector = MailchimpConnector()
-    response = connector.create_list(data=data)
-    new_list = json.loads(response)
+    new_list = connector.create_list(data=data)
+    # new_list = json.loads(response)
 
     memory["mailchimp_leads_list_id"] = new_list["id"]
     filepath = select_file()

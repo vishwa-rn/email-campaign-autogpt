@@ -8,7 +8,6 @@ from prompts import LEADS_AGENT_PROMPT
 from upload_leads_excel_chain import upload_leads_excel_chain
 # from langchain.chat_models import ChatOpenAI
 # from dotenv import load_dotenv
-from orchestrator import memory
 
 
 leads_prompt = """
@@ -35,6 +34,7 @@ def _fetch_mailchimp_list_tool(
 
 
 def upload_excel(objective: str):
+    memory = dict()
     return upload_leads_excel_chain(memory=memory)
 
 

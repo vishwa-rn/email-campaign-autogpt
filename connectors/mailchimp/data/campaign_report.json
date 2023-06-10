@@ -1,0 +1,163 @@
+{
+  "id": "fa5d801dee",
+  "campaign_title": "AutoMakeIt test",
+  "type": "regular",
+  "list_id": "4401609701",
+  "list_is_active": true,
+  "list_name": "Automakeit-3",
+  "subject_line": "Hello world",
+  "preview_text": "",
+  "emails_sent": 3,
+  "abuse_reports": 0,
+  "unsubscribed": 0,
+  "send_time": "2023-06-10T18:36:06+00:00",
+  "bounces": { "hard_bounces": 0, "soft_bounces": 0, "syntax_errors": 0 },
+  "forwards": { "forwards_count": 0, "forwards_opens": 0 },
+  "opens": {
+    "opens_total": 3,
+    "unique_opens": 2,
+    "open_rate": 0.6666666666666666,
+    "last_open": "2023-06-10T19:04:22+00:00"
+  },
+  "clicks": {
+    "clicks_total": 0,
+    "unique_clicks": 0,
+    "unique_subscriber_clicks": 0,
+    "click_rate": 0,
+    "last_click": ""
+  },
+  "facebook_likes": {
+    "recipient_likes": 0,
+    "unique_likes": 0,
+    "facebook_likes": 0
+  },
+  "industry_stats": {
+    "type": "eCommerce",
+    "open_rate": 0.20352221736393997,
+    "click_rate": 0.011959160193096218,
+    "bounce_rate": 0.01661970713291429,
+    "unopen_rate": 0.7798580755031458,
+    "unsub_rate": 0.0028992089741986258,
+    "abuse_rate": 0.00030733262264649004
+  },
+  "list_stats": {
+    "sub_rate": 90,
+    "unsub_rate": 0,
+    "open_rate": 0,
+    "click_rate": 0
+  },
+  "timeseries": [
+    {
+      "timestamp": "2023-06-10T18:00:00+00:00",
+      "emails_sent": 0,
+      "unique_opens": 0,
+      "recipients_clicks": 0
+    },
+    {
+      "timestamp": "2023-06-10T19:00:00+00:00",
+      "emails_sent": 0,
+      "unique_opens": 0,
+      "recipients_clicks": 0
+    },
+    {
+      "timestamp": "2023-06-10T20:00:00+00:00",
+      "emails_sent": 0,
+      "unique_opens": 0,
+      "recipients_clicks": 0
+    }
+  ],
+  "ecommerce": {
+    "total_orders": 0,
+    "total_spent": 0,
+    "total_revenue": 0,
+    "currency_code": "INR"
+  },
+  "delivery_status": { "enabled": false },
+  "_links": [
+    {
+      "rel": "parent",
+      "href": "https://us21.api.mailchimp.com/3.0/reports",
+      "method": "GET",
+      "targetSchema": "https://us21.api.mailchimp.com/schema/3.0/Definitions/Reports/CollectionResponse.json",
+      "schema": "https://us21.api.mailchimp.com/schema/3.0/Paths/Reports/Collection.json"
+    },
+    {
+      "rel": "self",
+      "href": "https://us21.api.mailchimp.com/3.0/reports/fa5d801dee",
+      "method": "GET",
+      "targetSchema": "https://us21.api.mailchimp.com/schema/3.0/Definitions/Reports/Response.json"
+    },
+    {
+      "rel": "campaign",
+      "href": "https://us21.api.mailchimp.com/3.0/campaigns/fa5d801dee",
+      "method": "GET",
+      "targetSchema": "https://us21.api.mailchimp.com/schema/3.0/Definitions/Campaigns/Response.json"
+    },
+    {
+      "rel": "sub-reports",
+      "href": "https://us21.api.mailchimp.com/3.0/reports/fa5d801dee/sub-reports",
+      "method": "GET",
+      "targetSchema": "https://us21.api.mailchimp.com/schema/3.0/Definitions/Reports/Sub/Response.json"
+    },
+    {
+      "rel": "abuse-reports",
+      "href": "https://us21.api.mailchimp.com/3.0/reports/fa5d801dee/abuse-reports",
+      "method": "GET",
+      "targetSchema": "https://us21.api.mailchimp.com/schema/3.0/Definitions/Reports/Abuse/CollectionResponse.json"
+    },
+    {
+      "rel": "advice",
+      "href": "https://us21.api.mailchimp.com/3.0/reports/fa5d801dee/advice",
+      "method": "GET",
+      "targetSchema": "https://us21.api.mailchimp.com/schema/3.0/Definitions/Reports/Advice/Response.json"
+    },
+    {
+      "rel": "open-details",
+      "href": "https://us21.api.mailchimp.com/3.0/reports/fa5d801dee/open-details",
+      "method": "GET",
+      "targetSchema": "https://us21.api.mailchimp.com/schema/3.0/Definitions/Reports/OpenDetails/CollectionResponse.json"
+    },
+    {
+      "rel": "click-details",
+      "href": "https://us21.api.mailchimp.com/3.0/reports/fa5d801dee/click-details",
+      "method": "GET",
+      "targetSchema": "https://us21.api.mailchimp.com/schema/3.0/Definitions/Reports/ClickDetails/CollectionResponse.json"
+    },
+    {
+      "rel": "domain-performance",
+      "href": "https://us21.api.mailchimp.com/3.0/reports/fa5d801dee/domain-performance",
+      "method": "GET",
+      "targetSchema": "https://us21.api.mailchimp.com/schema/3.0/Definitions/Reports/DomainPerformance/Response.json"
+    },
+    {
+      "rel": "eepurl",
+      "href": "https://us21.api.mailchimp.com/3.0/reports/fa5d801dee/eepurl",
+      "method": "GET",
+      "targetSchema": "https://us21.api.mailchimp.com/schema/3.0/Definitions/Reports/Eepurl/CollectionResponse.json"
+    },
+    {
+      "rel": "email-activity",
+      "href": "https://us21.api.mailchimp.com/3.0/reports/fa5d801dee/email-activity",
+      "method": "GET",
+      "targetSchema": "https://us21.api.mailchimp.com/schema/3.0/Definitions/Reports/EmailActivity/CollectionResponse.json"
+    },
+    {
+      "rel": "locations",
+      "href": "https://us21.api.mailchimp.com/3.0/reports/fa5d801dee/locations",
+      "method": "GET",
+      "targetSchema": "https://us21.api.mailchimp.com/schema/3.0/Definitions/Reports/Locations/Response.json"
+    },
+    {
+      "rel": "sent-to",
+      "href": "https://us21.api.mailchimp.com/3.0/reports/fa5d801dee/sent-to",
+      "method": "GET",
+      "targetSchema": "https://us21.api.mailchimp.com/schema/3.0/Definitions/Reports/SentTo/CollectionResponse.json"
+    },
+    {
+      "rel": "unsubscribed",
+      "href": "https://us21.api.mailchimp.com/3.0/reports/fa5d801dee/unsubscribed",
+      "method": "GET",
+      "targetSchema": "https://us21.api.mailchimp.com/schema/3.0/Definitions/Reports/Unsubs/CollectionResponse.json"
+    }
+  ]
+}

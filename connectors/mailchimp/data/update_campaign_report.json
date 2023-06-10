@@ -1,0 +1,17 @@
+{
+  "emails_sent": 3,
+  "opens": {
+    "total": 3,
+    "unique": 2,
+    "our_rate": 0.6666666666666666,
+    "industry_rate": 0.20352221736393997,
+    "deviation": -0.4631444493027267
+  },
+  "clicks": {
+    "total": 0,
+    "unique": 0,
+    "our_rate": 0,
+    "industry_rate": 0.011959160193096218,
+    "deviation": 0.011959160193096218
+  }
+}

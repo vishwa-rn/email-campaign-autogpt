@@ -25,34 +25,13 @@ class MailchimpConnector:
 
         # Extract the mailing lists
         mailing_lists = response['lists']
-        return mailing_lists
+        # return mailing_lists
 
         # Create a new list that includes only the id and name of each list
-        # reduced_lists = [{'id': lst['id'], 'name': lst['name']}
-        #                  for lst in mailing_lists]
+        reduced_lists = [{'id': lst['id'], 'name': lst['name']}
+                         for lst in mailing_lists]
 
-        # return reduced_lists
-
-    #  data = {
-    #         "name": list_name,
-    #         "contact": {
-    #             "company": "Your Company",  # Add actual company name
-    #             "address1": "Address Line 1",  # Add actual address
-    #             "city": "City",  # Add actual city
-    #             "state": "State",  # Add actual state
-    #             "zip": "ZIP",  # Add actual zip code
-    #             "country": "Country"  # Add actual country
-    #         },
-    #         # Add actual permission reminder
-    #         "permission_reminder": "You're receiving this email because you signed up for updates from Our Company.",
-    #         "campaign_defaults": {
-    #             "from_name": "From Name",  # Add actual from name
-    #             "from_email": "from@email.com",  # Add actual from email
-    #             "subject": "",
-    #             "language": "en"
-    #         },
-    #         "email_type_option": True
-    #     }
+        return reduced_lists
 
     def create_list(self, data):
         url = f"{self.base_url}/lists"
@@ -76,13 +55,67 @@ class MailchimpConnector:
         # Handle potential errors here
         return response.json()
 
+    def create_campaign(self, campaign_type: str, list_id: str, campaign_title: str, from_name: str, reply_to: str, subject_line: str):
+        url = f"{self.base_url}/campaigns"
+        headers = {"Content-Type": "application/json"}
+        data = {
+            "type": campaign_type,
+            "recipients": {
+                "list_id": list_id
+            },
+            "settings": {
+                "subject_line": subject_line,
+                "title": campaign_title,
+                "from_name": from_name,
+                "reply_to": reply_to
+            }
+        }
 
-# if __name__ == "__main__":
-#     # Create a connector object
-#     connector = MailchimpConnector()
+        response = requests.post(url, auth=(
+            "anystring", self.api_key), headers=headers, data=json.dumps(data))
+        return response.json()
 
-#     # Call get_lists on the connector object
-#     lists = connector.get_lists()
+    def get_campaigns(self):
+        url = f"{self.base_url}/campaigns"
+        headers = {"Content-Type": "application/json"}
 
-#     # Do something with the lists. For example, print them:
-#     print(lists)
+        response = requests.get(url, auth=(
+            "anystring", self.api_key), headers=headers)
+
+        campaigns = response.json()['campaigns']
+
+        reduced_lists = [{'id': campaign['id'], 'name': campaign['name']}
+                         for campaign in campaigns]
+
+        return reduced_lists
+
+    def update_campaign_body(self, body, campaign_id):
+        url = f'{self.base_url}/campaigns/{campaign_id}/content'
+        headers = {"Content-Type": "application/json"}
+
+        data = {
+            'html': '<p>Your HTML content here</p>'
+        }
+
+        response = requests.put(url, auth=(
+            "anystring", self.api_key), headers=headers, data=json.dumps(data))
+
+        print(response.json())
+
+        if response.status_code == 200:
+            print('Content added successfully')
+        else:
+            print(f'Error: {response.json()}')
+
+    def send_campaign(self, campaign_id):
+        url = f"{self.base_url}/campaigns/{campaign_id}/actions/send"
+        response = requests.post(url, auth=("anystring", self.api_key))
+        return response.json()
+
+    def retrieve_campaign_report(self, campaign_id):
+        url = f"{self.base_url}/reports/{campaign_id}"
+        headers = {"Content-Type": "application/json"}
+
+        response = requests.get(url, auth=(
+            "anystring", self.api_key), headers=headers)
+        return response.json()
