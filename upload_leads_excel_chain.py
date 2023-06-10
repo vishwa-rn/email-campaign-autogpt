@@ -81,29 +81,3 @@ def upload_leads_excel_chain(memory: dict):
         print("No file selected.")
 
     return "Uploaded excel to mailchimp and the list id is stored in the shared memory."
-
-
-# with open('connectors/mailchimp/data/testing.csv', 'r') as file:
-#     csvFile = csv.reader(file)
-#     reader = csv.DictReader(file)
-#     emails = [row['email'] for row in reader]
-#     for email in emails:
-#         response = connector.add_member_to_list(
-#             list_id=memory["mailchimp_leads_list_id"], email_address=email)
-#         print(response)
-
-# print(connector.get_lists())
-
-
-# def main():
-#     filepath = select_file()
-#     contents = []
-#     if filepath:
-#         contents = read_file(filepath, contents)
-#         print(contents)
-#     else:
-#         print("No file selected.")
-
-
-# if __name__ == "__main__":
-#     main()
