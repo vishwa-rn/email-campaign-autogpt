@@ -2,7 +2,7 @@ from connectors.mailchimp.main import MailchimpConnector
 import json
 
 
-def retrieve_campaign_reports(objective: str):
+def retrieve_campaign_reports_chain(objective: str):
     connector = MailchimpConnector()
     report = connector.retrieve_campaign_report("fa5d801dee")
     report = {
@@ -26,4 +26,4 @@ def retrieve_campaign_reports(objective: str):
     return f"""Deviation of opens from the industry is {round(report['opens']["deviation_from_industry"]*100, 2)}% and the deviation of clicks from the industry is {round(report['clicks']['deviation_from_industry']*100, 2)}%"""
 
 
-# print(retrieve_campaign_reports("test"))
+# print(retrieve_campaign_reports_chain("test"))
