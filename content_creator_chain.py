@@ -5,6 +5,7 @@ from langchain.chains import LLMChain
 from langchain.chat_models import ChatOpenAI
 from prompt_variables import USER_OBJECTIVE, USER_CONTEXT, USER_DETAILS
 from prompts import SUBJECT_LINE_PROMPT, EMAIL_BODY_PROMPT
+from utils import update_pickle_file, get_value_from_pickle
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -25,25 +26,28 @@ subject_line_chain = LLMChain(llm=llm, prompt=subject_line_prompt)
 body_line_chain = LLMChain(llm=llm, prompt=body_line_prompt)
 
 
-def get_subject_line_for_email_campaign(user_objective=USER_OBJECTIVE, user_context=USER_CONTEXT):
-    subject_line = subject_line_chain.run({"user_objective": user_objective,
-                                           "user_context": user_context})
+def get_subject_line_for_email_campaign():
+    user_context = get_value_from_pickle(key="user_context")
+    user_objective = get_value_from_pickle(key="user_objective")
+    subject_line = subject_line_chain.run(
+        {"user_objective": user_objective, "user_context": user_context})
+    update_pickle_file(key="email_subject_line", value=subject_line)
     return subject_line
 
 
-def get_body_for_email_campaign(user_objective, user_context=USER_CONTEXT, user_details=USER_DETAILS):
+def get_body_for_email_campaign():
+    user_context = get_value_from_pickle(key="user_context")
+    user_objective = get_value_from_pickle(key="user_objective")
+    user_details = get_value_from_pickle(key="user_details")
     body = body_line_chain.run({"user_objective": user_objective,
                                 "user_context": user_context, "user_details": user_details})
+    update_pickle_file(key="email_body", value=body)
     return body
 
 
-def get_email_content(user_objective=USER_OBJECTIVE, user_context=USER_CONTEXT, user_details=USER_DETAILS):
-    subject_line = get_subject_line_for_email_campaign(
-        user_objective=user_objective, user_context=user_context)
+def get_email_content():
+    subject_line = get_subject_line_for_email_campaign()
 
-    body = get_body_for_email_campaign(
-        user_objective=user_objective, user_context=user_context, user_details=user_details)
+    body = get_body_for_email_campaign()
     body = "Dear " + body
-    return [
-        subject_line, body
-    ]
+    return [subject_line, body]

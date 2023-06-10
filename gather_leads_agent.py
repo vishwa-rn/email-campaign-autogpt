@@ -34,8 +34,7 @@ def _fetch_mailchimp_list_tool(
 
 
 def upload_excel(objective: str):
-    memory = dict()
-    return upload_leads_excel_chain(memory=memory)
+    return upload_leads_excel_chain()
 
 
 def _upload_excel_tool(
@@ -79,7 +78,7 @@ def create_leads_agent(llm: BaseLanguageModel, user_objective: str) -> AgentExec
 # 1. Start an agent with three options. - human input to choose from the other two options
 
 
-def gather_leads_chain(llm: BaseLanguageModel, user_objective: str, memory: dict) -> str:
+def gather_leads_chain(llm: BaseLanguageModel, user_objective: str) -> str:
     agent_executor = create_leads_agent(llm=llm, user_objective=user_objective)
     # agent_executor.run(
     #     {"input": user_objective, "user_choice": "Use an existing mailchimp list."})

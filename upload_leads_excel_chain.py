@@ -1,10 +1,10 @@
 import tkinter as tk
 from tkinter import filedialog
-from user_details import user_details
 from langchain.base_language import BaseLanguageModel
 import csv
 import json
 from connectors.mailchimp.main import MailchimpConnector
+from utils import update_pickle_file, get_value_from_pickle
 
 
 def select_file():
@@ -53,6 +53,8 @@ def upload_leads_excel_chain(memory: dict):
         answer = input(value['question'] + " ")
         answers[key] = answer
 
+    user_details = get_value_from_pickle(key='user_details')
+
     data = {
         "name": answers["list_name"],
         "contact": user_details['contact'],
@@ -68,14 +70,13 @@ def upload_leads_excel_chain(memory: dict):
 
     connector = MailchimpConnector()
     new_list = connector.create_list(data=data)
-    # new_list = json.loads(response)
 
-    memory["mailchimp_leads_list_id"] = new_list["id"]
+    update_pickle_file(key="mailchimp_leads_list_id", value=new_list["id"])
     filepath = select_file()
     contents = []
     if filepath:
         contents = read_file(filepath, connector=connector,
-                             list_id=memory["mailchimp_leads_list_id"])
+                             list_id=new_list["id"])
         print(contents)
     else:
         print("No file selected.")

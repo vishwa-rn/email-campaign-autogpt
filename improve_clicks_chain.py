@@ -14,7 +14,6 @@ segment = connector.create_segment(
 # update the parameters after the memory problem is fixed.
 new_subject_line = get_subject_line_for_email_campaign()
 
-# update the parameters after the memory problem is fixed.
 new_body = get_body_for_email_campaign()
 
 # update the parameters once the memory problem is solved.

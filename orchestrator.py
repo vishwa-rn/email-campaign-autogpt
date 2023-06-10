@@ -12,17 +12,17 @@ from langchain.agents import AgentExecutor, ZeroShotAgent
 from prompts import ORCHESTRATOR_PROMPT
 from gain_context import gain_context_chain
 from gather_leads_agent import gather_leads_chain
+from utils import update_pickle_file
+from user_details import user_details
 
 os.environ["OPENAI_API_KEY"] = "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"
 os.environ["SERPAPI_API_KEY"] = "5e80ac42927317d4a30a71581ec1234f7104563fa118017d89fd8b1a55cc3646"
 
 llm = OpenAI(temperature=0)  # type: ignore
-memory = dict()
 
 
 def gain_context(objective: str):
-    memory["objective"] = objective
-    return gain_context_chain(llm=llm, user_objective=objective, memory=memory)
+    return gain_context_chain(llm=llm, user_objective=objective)
 
 
 def _gain_context_tool(llm: BaseLanguageModel) -> Tool:
@@ -35,7 +35,7 @@ def _gain_context_tool(llm: BaseLanguageModel) -> Tool:
 
 
 def gather_leads(objective: str):
-    return gather_leads_chain(llm=llm, user_objective=objective, memory=memory)
+    return gather_leads_chain(llm=llm, user_objective=objective)
 
 
 def _gather_leads_tool(
@@ -122,7 +122,9 @@ def create_agent(
 
 
 agentExecutor = create_agent(llm=llm)
-memory = {}
 objective = input("> What is your objective? \n")
-memory['objective'] = objective
-agentExecutor.run(objective)
+
+update_pickle_file(key="user_objective", value=objective)
+update_pickle_file(key="user_details", value=user_details)
+
+# agentExecutor.run(objective)

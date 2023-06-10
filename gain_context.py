@@ -3,6 +3,7 @@ from langchain.prompts import PromptTemplate
 from prompts import GAIN_CONTEXT_PROMPT, GAIN_CONTEXT_QUESTIONS_PROMPT
 from langchain.chains import LLMChain
 import os
+from utils import update_pickle_file
 import json
 
 user_objective_test = """Drive 200 signups for my upcoming webinar"""
@@ -34,7 +35,7 @@ def gain_context_questions(llm: BaseLanguageModel, user_objective: str):
     return chain.run(user_objective)
 
 
-def gain_context_chain(llm: BaseLanguageModel, user_objective: str, memory: dict):
+def gain_context_chain(llm: BaseLanguageModel, user_objective: str):
     questions = gain_context_questions(llm=llm, user_objective=user_objective)
     try:
         questions = json.loads(questions)
@@ -57,5 +58,5 @@ def gain_context_chain(llm: BaseLanguageModel, user_objective: str, memory: dict
     chain = LLMChain(llm=llm, prompt=prompt)
     context = chain.run(user_objective=user_objective,
                         questions_and_answers=questions_and_answers)
-    memory['context'] = context
+    update_pickle_file(key="user_context", value=context)
     return "Gained context about the objective."
