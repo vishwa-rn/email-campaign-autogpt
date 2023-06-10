@@ -119,3 +119,48 @@ class MailchimpConnector:
         response = requests.get(url, auth=(
             "anystring", self.api_key), headers=headers)
         return response.json()
+
+    def get_campaign_non_openers(self, campaign_id):
+        url = f"{self.base_url}/reports/{campaign_id}/email-activity"
+        headers = {"Content-Type": "application/json"}
+
+        response = requests.get(url, auth=(
+            "anystring", self.api_key), headers=headers)
+        email_activity = response.json()
+        non_openers = []
+        for record in email_activity['emails']:
+            actions = record['activity']
+            if not any(action['action'] == 'open' for action in actions):
+                non_openers.append(record['email_address'])
+
+        print(non_openers)
+        return non_openers
+
+    def get_campaign_non_clickers(self, campaign_id):
+        url = f"{self.base_url}/reports/{campaign_id}/email-activity"
+        headers = {"Content-Type": "application/json"}
+
+        response = requests.get(url, auth=(
+            "anystring", self.api_key), headers=headers)
+        email_activity = response.json()
+
+        non_clickers = []
+        for record in email_activity['emails']:
+            actions = record['activity']
+            if not any(action['action'] == 'click' for action in actions):
+                non_clickers.append(record['email_address'])
+
+        print(non_clickers)
+        return non_clickers
+
+    def create_segment(self, list_id, segment_name, segment_conditions):
+        url = f"{self.base_url}/lists/{list_id}/segments"
+        headers = {"Content-Type": "application/json"}
+        data = {
+            "name": segment_name,
+            "static_segment": segment_conditions
+        }
+
+        response = requests.post(url, auth=(
+            "anystring", self.api_key), headers=headers, data=json.dumps(data))
+        return response.json()
