@@ -37,7 +37,7 @@ def read_file(filepath, connector: MailchimpConnector, list_id):
     return csvFile
 
 
-def upload_leads_excel_chain(memory: dict):
+def upload_leads_excel_chain():
     inputs = {
         "list_name": {
             "question": "What is the list name?"

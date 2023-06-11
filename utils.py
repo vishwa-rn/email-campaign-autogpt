@@ -28,3 +28,6 @@ def get_value_from_pickle(key, filename="data/memory.pkl"):
 
     else:
         return None  # Return None if the file does not exist
+
+
+get_value_from_pickle(key="test")

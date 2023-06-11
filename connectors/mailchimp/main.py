@@ -72,7 +72,7 @@ class MailchimpConnector:
         }
 
         response = requests.post(url, auth=(
-            "anystring", self.api_key), headers=headers, data=json.dumps(data))
+            "anystring", self.api_key), headers=headers, data=json.dumps(data))  # type: ignore
         return response.json()
 
     def get_campaigns(self):
@@ -80,7 +80,7 @@ class MailchimpConnector:
         headers = {"Content-Type": "application/json"}
 
         response = requests.get(url, auth=(
-            "anystring", self.api_key), headers=headers)
+            "anystring", self.api_key), headers=headers)  # type: ignore
 
         campaigns = response.json()['campaigns']
 
@@ -94,11 +94,11 @@ class MailchimpConnector:
         headers = {"Content-Type": "application/json"}
 
         data = {
-            'html': '<p>Your HTML content here</p>'
+            'html': body
         }
 
         response = requests.put(url, auth=(
-            "anystring", self.api_key), headers=headers, data=json.dumps(data))
+            "anystring", self.api_key), headers=headers, data=json.dumps(data))  # type: ignore
 
         print(response.json())
 
@@ -109,15 +109,16 @@ class MailchimpConnector:
 
     def send_campaign(self, campaign_id):
         url = f"{self.base_url}/campaigns/{campaign_id}/actions/send"
-        response = requests.post(url, auth=("anystring", self.api_key))
-        return response.json()
+        response = requests.post(url, auth=(
+            "anystring", self.api_key))  # type: ignore
+        return response.status_code == 204
 
     def retrieve_campaign_report(self, campaign_id):
         url = f"{self.base_url}/reports/{campaign_id}"
         headers = {"Content-Type": "application/json"}
 
         response = requests.get(url, auth=(
-            "anystring", self.api_key), headers=headers)
+            "anystring", self.api_key), headers=headers)  # type: ignore
         return response.json()
 
     def get_campaign_non_openers(self, campaign_id):
@@ -125,7 +126,7 @@ class MailchimpConnector:
         headers = {"Content-Type": "application/json"}
 
         response = requests.get(url, auth=(
-            "anystring", self.api_key), headers=headers)
+            "anystring", self.api_key), headers=headers)  # type: ignore
         email_activity = response.json()
         non_openers = []
         for record in email_activity['emails']:
@@ -141,7 +142,7 @@ class MailchimpConnector:
         headers = {"Content-Type": "application/json"}
 
         response = requests.get(url, auth=(
-            "anystring", self.api_key), headers=headers)
+            "anystring", self.api_key), headers=headers)  # type: ignore
         email_activity = response.json()
 
         non_clickers = []
@@ -162,7 +163,7 @@ class MailchimpConnector:
         }
 
         response = requests.post(url, auth=(
-            "anystring", self.api_key), headers=headers, data=json.dumps(data))
+            "anystring", self.api_key), headers=headers, data=json.dumps(data))  # type: ignore
         return response.json()
 
     def create_campaign_for_segment(self, campaign_type: str, list_id: str, segment_id: int, campaign_title: str, from_name: str, reply_to: str, subject_line: str):
@@ -185,5 +186,5 @@ class MailchimpConnector:
         }
 
         response = requests.post(url, auth=(
-            "anystring", self.api_key), headers=headers, data=json.dumps(data))
+            "anystring", self.api_key), headers=headers, data=json.dumps(data))  # type: ignore
         return response.json()

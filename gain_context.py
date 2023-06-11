@@ -23,7 +23,6 @@ questions_and_answers_test = """
 12. ["Do you have a specific timeline in mind for this email campaign?" "Introduction mail today and reminder mails for the people who haven't applied."]
 13. ["Have you run similar email campaigns in the past? If so, what worked and what didn't?","No"]
 """
-os.environ["OPENAI_API_KEY"] = "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"
 
 
 def gain_context_questions(llm: BaseLanguageModel, user_objective: str):
@@ -48,7 +47,7 @@ def gain_context_chain(llm: BaseLanguageModel, user_objective: str):
 
     # Adding start=1 to start the enumeration from 1 instead of 0
     for i, question in enumerate(questions, start=1):
-        response = input(f"Question {i} of {total_questions}: {question}\n")
+        response = input(f"\nQuestion {i} of {total_questions}: {question}\n")
         questions_and_answers += str([question, response]) + "\n"
 
     prompt = PromptTemplate(

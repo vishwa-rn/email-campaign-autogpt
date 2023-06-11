@@ -11,8 +11,11 @@ def create_campaign_chain():
     connector = MailchimpConnector()
     list_id = get_value_from_pickle(key='list_id')
     email_body = get_value_from_pickle(key='email_body')
-    email_subject = get_value_from_pickle(key="email_subject")
+    email_subject = get_value_from_pickle(key="email_subject_line")
     from_name = get_value_from_pickle(key="from_name")
+    if from_name is None:
+        from_name = input("What is the FROM name?")
+        update_pickle_file('from_name', from_name)
     user_objective = get_value_from_pickle(key="user_objective")
     update_pickle_file(key="campaign_title", value=user_objective)
 
@@ -30,6 +33,7 @@ def create_campaign_chain():
 
     campaign = connector.create_campaign(campaign_type="regular", list_id=list_id, campaign_title=user_objective,
                                          from_name=from_name, reply_to=answers["reply_to"], subject_line=email_subject)
+    print(campaign)
     campaign_id = campaign['id']
     update_pickle_file(key="campaign_id", value=campaign_id)
 

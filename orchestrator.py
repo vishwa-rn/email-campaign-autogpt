@@ -4,6 +4,7 @@ from langchain.agents import load_tools
 from langchain.agents import initialize_agent
 from langchain.agents import AgentType
 from langchain.llms import OpenAI
+from langchain.chat_models import ChatOpenAI
 from langchain.chains import LLMChain
 from langchain.tools import tool, Tool
 from langchain.base_language import BaseLanguageModel
@@ -14,13 +15,15 @@ from gain_context import gain_context_chain
 from gather_leads_agent import gather_leads_chain
 from content_creator_chain import get_email_content_chain
 from create_campaign_chain import create_campaign_chain
+from send_campaign_chain import send_campaign_chain
 from utils import update_pickle_file
 from user_details import user_details
+from dotenv import load_dotenv
 
-os.environ["OPENAI_API_KEY"] = "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"
-os.environ["SERPAPI_API_KEY"] = "5e80ac42927317d4a30a71581ec1234f7104563fa118017d89fd8b1a55cc3646"
-
-llm = OpenAI(temperature=0)  # type: ignore
+load_dotenv()
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+llm = ChatOpenAI(
+    temperature=0, openai_api_key="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")  # type: ignore
 
 
 def gain_context(objective: str):
@@ -80,7 +83,7 @@ def _create_campaign_tool(llm: BaseLanguageModel) -> Tool:
 
 
 def start_campaign(plan_str: str):
-    return "Started the email campaign for this objective"
+    return send_campaign_chain()
 
 
 def _start_campaign_tool(llm: BaseLanguageModel) -> Tool:
@@ -129,4 +132,4 @@ objective = input("> What is your objective? \n")
 update_pickle_file(key="user_objective", value=objective)
 update_pickle_file(key="user_details", value=user_details)
 
-# agentExecutor.run(objective)
+agentExecutor.run(objective)

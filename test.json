@@ -1,0 +1,29 @@
+{
+  "user_objective": "Drive 200 signups for my upcoming webinar",
+  "user_details": {
+    "contact": {
+      "company": "AutoMakeIt",
+      "address1": "Service",
+      "address2": "L-172",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "zip": "560102",
+      "country": "IN",
+      "phone": "09923532359"
+    },
+    "campaign_defaults": {
+      "from_name": "JOHN",
+      "from_email": "john@blackpropeller.com",
+      "subject": "",
+      "language": "en"
+    },
+    "permission_reminder": "WE OFFER DIGITAL MARKETING SERVICES FOR PAID SOCIAL"
+  },
+  "user_context": "Context:\nOur user objective is to drive 200 signups for our upcoming live webinar on Generative AI hackathon, which is targeted towards students. The webinar is scheduled for June 25 and participants can sign up on our website codeasy.ai. The benefits of attending the webinar include learning new skills. There is no registration fee and we only require participants to provide their name and phone number during the signup process. We have not run similar email campaigns in the past and there are no specific messages or offers that have resonated well with our target audience. We do not have any preferred email marketing platform or email templates/branding guidelines to follow. There is no specific timeline in mind for this email campaign.",
+  "list_id": "4401609701",
+  "list_name": "Automakeit-3",
+  "email_subject_line": "Unlock the Power of Generative AI: Join Our Free Webinar on June 25th!",
+  "email_body": "Dear We are excited to invite you to our upcoming live webinar on Generative AI hackathon, scheduled for June 25. As a student, this is a great opportunity for you to learn new skills and gain valuable insights into the world of AI.\n\nAt codeasy.ai, we believe in making education accessible to everyone, which is why there is no registration fee for this webinar. All we require is your name and phone number during the signup process.\n\nBy attending this webinar, you will have the chance to interact with industry experts and learn about the latest trends in AI. Whether you are a beginner or an experienced professional, there is something for everyone in this webinar.\n\nWe are aiming to drive 200 signups for this webinar and we need your help to achieve this goal. So, please spread the word and invite your friends and colleagues to sign up as well.\n\nThank you for your support and we look forward to seeing you at the webinar.\n\nBest regards,\n\nJohn\nAutoMakeIt",
+  "campaign_title": "Drive 200 signups for my upcoming webinar",
+  "reply_to": "gopal@pixis.ai"
+}

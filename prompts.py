@@ -52,7 +52,7 @@ GAIN_CONTEXT_QUESTIONS_PROMPT = """Given the user objective and the instruction,
 
 Example:
 User objective: Drive 200 signups to my hackathon event.
-Questions: ["What is the name of your hackathon event?", "What are the date and time of the event?", "Is it an online event or a physical event? If physical, where is the location?", "What's the theme or focus of the hackathon (e.g., AI, Blockchain, IoT, general coding, etc.)?", "How long is the hackathon (e.g., 24 hours, 48 hours, a week, etc.)?", "What benefits can participants expect from the event (e.g., prizes, networking opportunities, learning new skills, etc.)?", "Who are your target participants (e.g., students, professionals, coding enthusiasts, etc.)?", "What are the likely interests or motivations of these participants?", "Is there any specific skill level required to participate in the hackathon?", "How can participants sign up for the event? Is there a website or platform they should visit?", "What information do you require from the participants during the signup process?", "Is there a registration fee? If so, how much is it?", "Have you run similar email campaigns in the past? If so, what worked and what didn't?", "Are there any specific messages or offers that have resonated well with your target audience in the past?", "Do you have a preferred email marketing platform?", "Do you have any email templates or branding guidelines we should stick to?", "Do you have a specific timeline in mind for this email campaign?"]
+Questions: ["What is the name of your hackathon event?", "What are the date and time of the event?", "Is it an online event or a physical event? If physical, where is the location?", "What's the theme or focus of the hackathon (e.g., AI, Blockchain, IoT, general coding, etc.)?", "How long is the hackathon (e.g., 24 hours, 48 hours, a week, etc.)?", "What benefits can participants expect from the event (e.g., prizes, networking opportunities, learning new skills, etc.)?", "Who are your target participants (e.g., students, professionals, coding enthusiasts, etc.)?", "What are the likely interests or motivations of these participants?", "Is there any specific skill level required to participate in the hackathon?"]
 
 
 User objective: {user_objective}",
@@ -73,7 +73,8 @@ Questions & Answers:
 
 LEADS_AGENT_PROMPT = """You are an lead gathering agent which gathers leads for an email campaign. We are running the email campaign to achieve a user objective.
 
-Here are the tools to gather the leads: {tool_descriptions}
+Here are the tools to gather the leads: 
+{tool_descriptions}
 
 All the tools have the shared memory and they know how to extract the information which they need from that shared memory.
 
@@ -87,7 +88,7 @@ Starting below, you should follow this format:
 
 User Objective: The objective user is trying to achieve.
 User Choice: Choice between uploading an excel or an existing mailchimp list.
-Thought: you should always think about what to do.
+Thought: you should always think about what to do based on only available.
 Action: the action to take, should be one of the tools [{tool_names}]
 Action Input: the input to the action generally N/A or the objective
 Observation: the result of the action

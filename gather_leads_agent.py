@@ -80,6 +80,7 @@ def create_leads_agent(llm: BaseLanguageModel, user_objective: str) -> AgentExec
 
 
 def gather_leads_chain(llm: BaseLanguageModel, user_objective: str) -> str:
+    input("What way do you want to gather the leads? \n1. Upload Excel\n2. Use an existing mailchimp list.")
     agent_executor = create_leads_agent(llm=llm, user_objective=user_objective)
     agent_executor.run("Use an existing mailchimp list.")
     return "Gathered leads for this objective and saved them in the shared memory"
