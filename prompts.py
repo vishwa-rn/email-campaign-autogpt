@@ -198,14 +198,15 @@ Starting below, you should follow this format:
 User objective: The objective which user is trying to achieve.
 User Context: The context which user gave to build the email to achieve the objective.
 User Details: The details of the person who is sending the mail which can be included in the body.
-Output: Body of the mail
+Output: Body of the mail which start with Dear *|FNAME|*
 ...
 
 Begin!
 User objective: {user_objective}
 User Context: {user_context}
 User Details: {user_details}
-Output: Dear 
+Output: Dear *|FNAME|*,
+
 """
 
 ANALYTICS_ORCHESTRATOR_PROMPT = """

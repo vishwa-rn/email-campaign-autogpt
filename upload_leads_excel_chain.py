@@ -19,13 +19,16 @@ def select_file():
     return filepath
 
 
-def read_file(filepath, connector, list_id):
+def read_file(filepath, connector: MailchimpConnector, list_id):
     with open(filepath, 'r') as file:
         reader = csv.DictReader(file)
-        emails = [row['email'] for row in reader]
-        for email in emails:
+        user_data = [{"email": row['email'], "first_name": row['first_name']}
+                     for row in reader]
+        for user in user_data:
             response = connector.add_member_to_list(
-                list_id=list_id, email_address=email)
+                list_id=list_id, email_address=user["email"], merge_fields={
+                    "FNAME": user["first_name"]
+                })
             print(response)
 
         csvFile = csv.reader(file)
