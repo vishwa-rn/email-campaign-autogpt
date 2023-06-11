@@ -5,6 +5,7 @@ from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from langchain.chat_models import ChatOpenAI
 from retrieve_campaign_reports_chain import retrieve_campaign_reports_chain
+from improve_opens_chain import improve_opens_chain
 from prompts import ANALYTICS_ORCHESTRATOR_PROMPT
 import dotenv
 
@@ -15,7 +16,7 @@ llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
 
 
 def improve_opens(objective: str) -> str:
-    return "Improve opens"
+    return improve_opens_chain()
 
 
 def _improve_opens_tool(llm: BaseLanguageModel) -> Tool:
@@ -27,7 +28,7 @@ def _improve_opens_tool(llm: BaseLanguageModel) -> Tool:
 
 
 def improve_clicks(objective: str) -> str:
-    return "Improve clicks"
+    return "Started a new campaign with changes to improve clicks."
 
 
 def _improve_clicks_tool(llm: BaseLanguageModel) -> Tool:
